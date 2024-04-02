@@ -125,13 +125,9 @@ fn main() {
                     // open the file and write the new content
                     let mut file = File::create(&base_path).expect("Failed to create file");
                     file.write_all(result2.as_bytes()).expect("Failed to write to file");
-                } else {// update 
-                    let differences = detect_differences(&current_json,&package_json_contents_str );
-                    println!("{:?}", differences);
-                    let mut package_base_json_value : Value = serde_json::from_str(&package_base_json_contents).expect("Failed to parse package.json");
-                    apply_differences(  &mut package_base_json_value, &differences);
-                    let result2 =serde_json::to_string_pretty(&package_base_json_value).unwrap();
-                    println!("{}", result2);
+                } else {// update the package.json
+                    let mut file = File::create(&package_json_path).expect("Failed to create file");
+                    file.write_all(current_json.as_bytes()).expect("Failed to write to file");
                 }
                 let differences = detect_differences(&current_json,&package_json_contents_str );
                 println!("{:?}", differences);
