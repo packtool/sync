@@ -1,7 +1,7 @@
 use glob::glob;
 use std::fs::File;
 use serde_json::Value;
-use tempfile::NamedTempFile;
+
 use std::io::{ Write, Read};
 use std::path::Path;
 use clap::{Command, Arg};
@@ -79,26 +79,24 @@ fn create_file_if_not_exists(file_path: &str) {
 
 
 fn main() {
+    // argument parsing
     let matches = Command::new("MyApp").arg(
                 Arg::new("mode")
                     .help("The mode")
-                    .value_parser(["sync", "update"])
+                    .value_parser(["pull", "push"])
                     .required(true)
                     .index(1),
             )
             .get_matches();
     let mode : &String = matches.get_one("mode").expect("default");
-    println!("mode: {}", mode);
-    
-    let workspaces = read_package_json("package.json");
-    
+    // read workspaces and package.json files
+    let workspaces = read_package_json("package.json"); 
         for workspace in &workspaces {
             let package_json_paths = find_package_json(&workspace, "package.json");
             for package_json_path in package_json_paths {
                 let package_json_contents_str = std::fs::read_to_string(&package_json_path).expect("Failed to read extend file");
                 // get the base file
                 let base_path = get_path(&package_json_path, "package.base.json");
-                println!("{}", base_path);
                 create_file_if_not_exists(&base_path);
                 let mut package_base_json_file = File::open(&base_path).expect("Failed to open extend file");
                 let mut package_base_json_contents = String::new();
@@ -107,7 +105,7 @@ fn main() {
                 // let package_base_json_value : Value = serde_json::from_str(package_base_json_contents_str).expect("Failed to parse package.json");
                 // read the extends
                 let extends = read_extends(&base_path);
-                let mut new_json = &mut package_base_json_contents_str;
+                let _new_json = &mut package_base_json_contents_str;
                 let mut current_json = package_base_json_contents.clone();
                 for extend in extends.iter().rev() {
                     let extend_path = get_path(&package_json_path, &extend);
@@ -116,8 +114,8 @@ fn main() {
                     .expect("Failed to read extend file");
                     current_json = merge_jsons(&current_json, &extend_contents);
                 }
-                println!("{}", current_json);
-                if mode == "sync" {
+
+                if mode == "pull" {
                     let differences = detect_differences(&current_json,&package_json_contents_str );
                     let mut package_base_json_value : Value = serde_json::from_str(&package_base_json_contents).expect("Failed to parse package.json");
                     apply_differences(  &mut package_base_json_value, &differences);
@@ -130,11 +128,9 @@ fn main() {
                     file.write_all(current_json.as_bytes()).expect("Failed to write to file");
                 }
                 let differences = detect_differences(&current_json,&package_json_contents_str );
-                println!("{:?}", differences);
                 let mut package_base_json_value : Value = serde_json::from_str(&package_base_json_contents).expect("Failed to parse package.json");
                 apply_differences(  &mut package_base_json_value, &differences);
-                let result2 =serde_json::to_string_pretty(&package_base_json_value).unwrap();
-                println!("{}", result2);
+                let _result2 =serde_json::to_string_pretty(&package_base_json_value).unwrap();
             }
         }
     

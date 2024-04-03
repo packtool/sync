@@ -4,11 +4,14 @@
     "packages/*"
   ],
   "scripts": {
-    "postversion": "packtool update",
-    "postinstall": "packtool update",
-    "preinstall": "echo ' preuninstall' > lolo.tst"
+    "postversion": "packtool pull",
+    "postinstall": "packtool pull",
+    "updatePackage" : "packtool push"
   },
   "devDependencies": {
     "lerna": "^8.1.2"
+  },
+  "dependencies": {
+    "@packtool/core": "^0.1.0"
   }
 }

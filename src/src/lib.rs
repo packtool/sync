@@ -1,14 +1,6 @@
-use wasm_bindgen::prelude::*;
 use std::collections::HashSet;
 use serde_json::Map;
 use serde_json::{Value, json};
-
-#[wasm_bindgen]
-pub fn say(s: &str) -> String {
-  let r = String::from("hello ");
-  return r + s;
-}
-
 
 
 #[derive(Debug, PartialEq)]
