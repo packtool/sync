@@ -7,6 +7,7 @@ use std::path::Path;
 use clap::{Command, Arg};
 use crate::lib::merge_jsons;
 use crate::lib::{detect_differences, apply_differences};
+
 mod lib; // Add this line to import the `lib` module
 /*
      Read the package.json file and return the list of workspaces
@@ -140,6 +141,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    use tempfile::NamedTempFile;
     use super::*;
 
     #[test]

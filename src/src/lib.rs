@@ -15,17 +15,17 @@ pub fn detect_differences(json1: &str, json2: &str) -> Vec<Difference> {
     let obj1: Value = serde_json::from_str(json1).unwrap_or_else(|_| Value::Null);
     let obj2: Value = serde_json::from_str(json2).unwrap_or_else(|_| Value::Null);
 
-    fn diff_recursive(obj1: &Map<String, Value>, obj2: &Map<String, Value>, prefix: String) -> Vec<Difference> {
+    fn diff_recursive(obj1: &Map<String, Value>, obj2: &Map<String, Value>) -> Vec<Difference> {
         let mut differences = Vec::new();
         let keys1: HashSet<_> = obj1.keys().collect();
         let keys2: HashSet<_> = obj2.keys().collect();
 
         for key in keys1.difference(&keys2) {
-            differences.push(Difference::OnlyInFirst(format!("{}{}", prefix, key), obj1.get(*key).unwrap().clone()));
+            differences.push(Difference::OnlyInFirst(format!("{}", key), obj1.get(*key).unwrap().clone()));
         }
 
         for key in keys2.difference(&keys1) {
-            differences.push(Difference::OnlyInSecond(format!("{}{}", prefix, key), obj2.get(*key).unwrap().clone()));
+            differences.push(Difference::OnlyInSecond(format!("{}", key), obj2.get(*key).unwrap().clone()));
         }
 
         for key in keys1.intersection(&keys2) {
@@ -33,7 +33,7 @@ pub fn detect_differences(json1: &str, json2: &str) -> Vec<Difference> {
             let val2 = obj2.get(*key).unwrap();
             if val1 != val2 {
                 if val1.is_object() && val2.is_object() {
-                    let nested_diffs = diff_recursive(val1.as_object().unwrap(), val2.as_object().unwrap(), format!("{}{}.", prefix, key));
+                    let nested_diffs = diff_recursive(val1.as_object().unwrap(), val2.as_object().unwrap());
                     if !nested_diffs.is_empty() {
                         differences.push(Difference::NestedDifference((*key).clone(), nested_diffs));
                     }
@@ -47,7 +47,7 @@ pub fn detect_differences(json1: &str, json2: &str) -> Vec<Difference> {
     }
 
     match (&obj1, &obj2) {
-        (Value::Object(map1), Value::Object(map2)) => diff_recursive(map1, map2, "".to_string()),
+        (Value::Object(map1), Value::Object(map2)) => diff_recursive(map1, map2),
         _ => vec![Difference::DifferentValues("".to_string(), obj1.clone(), obj2.clone())],
     }
 }
