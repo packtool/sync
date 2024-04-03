@@ -12,6 +12,7 @@ pub enum Difference {
 }
 
 pub fn detect_differences(json1: &str, json2: &str) -> Vec<Difference> {
+    // TODO refactor to avoid unnecesary json parsing, review tests
     let obj1: Value = serde_json::from_str(json1).unwrap_or_else(|_| Value::Null);
     let obj2: Value = serde_json::from_str(json2).unwrap_or_else(|_| Value::Null);
 

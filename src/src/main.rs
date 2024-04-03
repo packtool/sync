@@ -115,7 +115,6 @@ fn main() {
                     .expect("Failed to read extend file");
                     current_json = merge_jsons(&current_json, &extend_contents);
                 }
-
                 if mode == "pull" {
                     let differences = detect_differences(&current_json,&package_json_contents_str );
                     let mut package_base_json_value : Value = serde_json::from_str(&package_base_json_contents).expect("Failed to parse package.json");
@@ -126,12 +125,10 @@ fn main() {
                     file.write_all(result2.as_bytes()).expect("Failed to write to file");
                 } else {// update the package.json
                     let mut file = File::create(&package_json_path).expect("Failed to create file");
-                    file.write_all(current_json.as_bytes()).expect("Failed to write to file");
+                    let obj1: Value = serde_json::from_str(&current_json).unwrap_or_else(|_| Value::Null);
+                    let push_result =serde_json::to_string_pretty(&obj1).unwrap();
+                    file.write_all(push_result.as_bytes()).expect("Failed to write to file");
                 }
-                let differences = detect_differences(&current_json,&package_json_contents_str );
-                let mut package_base_json_value : Value = serde_json::from_str(&package_base_json_contents).expect("Failed to parse package.json");
-                apply_differences(  &mut package_base_json_value, &differences);
-                let _result2 =serde_json::to_string_pretty(&package_base_json_value).unwrap();
             }
         }
     
