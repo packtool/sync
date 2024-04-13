@@ -1,0 +1,24 @@
+{
+  "author": "",
+  "bin": {
+    "packtool": "bin/packtool.exe"
+  },
+  "cpu": [
+    "x64"
+  ],
+  "description": "sync and extends your package.json",
+  "license": "MIT",
+  "name": "@packtool/core_win32_x64",
+  "os": [
+    "win32"
+  ],
+  "packtool": {
+    "extends": [
+      "../../reference.json"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.2.0"
+}

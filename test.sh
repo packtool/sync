@@ -1,8 +1,8 @@
 #!/bin/bash
-pushd ./node
+pushd ./packages/core
 npm pack    # create a tarball
 popd
-mv node/*.tgz test/monorepo/  
+mv ./packages/core/*.tgz test/monorepo/  
 pushd test/monorepo # copy the tarball to the root directory
 npm install *.tgz
 rm *.tgz

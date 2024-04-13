@@ -1,3 +1,5 @@
 target
 pkg
-/node/bin/packtool
+node_modules
+packtool
+packtool.exe

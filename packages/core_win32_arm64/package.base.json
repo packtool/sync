@@ -1,0 +1,20 @@
+{
+  "bin": {
+    "packtool": "bin/packtool.exe"
+  },
+  "cpu": [
+    "arm64"
+  ],
+  "name": "@packtool/core_win32_arm64",
+  "os": [
+    "win32"
+  ],
+  "packtool": {
+    "extends": [
+      "../../reference.json"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

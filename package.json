@@ -1,3 +1,13 @@
-{ 
-   "type": "module"
- }
+{
+   "workspaces": [
+      "packages/*"
+   ],
+   "scripts": {
+      "pullpack": "packtool pull",
+      "pushpack": "packtool push"
+   },
+   "devDependencies": {
+      "@packtool/core": "0.2.0",
+      "lerna": "^8.1.2"
+   }
+}

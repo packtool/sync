@@ -400,10 +400,10 @@
   dependencies:
     "@octokit/openapi-types" "^18.0.0"
 
-"@packtool/core@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@packtool/core/-/core-0.1.0.tgz"
-  integrity sha512-pmnchnd/xnvKWcr52ZJouchTbF/6SEIFiZR4260RxayGCA/MPxACKfUH+y9kZTv/5nqeFVAa/1rAVwwdu6Ee8Q==
+"@packtool/core@file:packtool-core-0.1.2.tgz":
+  version "0.1.2"
+  resolved "file:packtool-core-0.1.2.tgz"
+  integrity sha512-quZIYgDnHmrEost3MBj2le/GyUavYqM82bczgH7/3vXzqFN39/cGhW2eAvGwlhhcCdWgEEJMUiI77NpBzfTxsA==
 
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
@@ -4356,11 +4356,14 @@ wordwrap@^1.0.0:
   resolved "https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-workspace-a@1.0.0, "workspace-a@file:/home/raulns/workspaces/commonpack/test/monorepo/packages/workspace-a":
+workspace-a@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/workspace-a/-/workspace-a-1.0.0.tgz"
+  integrity sha512-/qOdvsIvtRPoLysEOdFk+aGXS3fGHD0zTor59GQQdS5/nQ1iAmOTPtNtiN12/dY/UHva8d75Xe3d+5l7p5vL4g==
+
+"workspace-a@file:/home/raulns/workspaces/commonpack/test/monorepo/packages/workspace-a":
   version "1.0.0"
   resolved "file:packages/workspace-a"
-  dependencies:
-    cross-env "5.0.5"
 
 "workspace-b@file:/home/raulns/workspaces/commonpack/test/monorepo/packages/workspace-b":
   version "1.0.0"

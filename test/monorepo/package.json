@@ -4,14 +4,13 @@
     "packages/*"
   ],
   "scripts": {
-    "postversion": "packtool pull",
-    "postinstall": "packtool pull",
-    "updatePackage" : "packtool push"
+    "pullpack": "packtool pull",
+    "pushpack": "packtool push"
   },
   "devDependencies": {
     "lerna": "^8.1.2"
   },
   "dependencies": {
-    "@packtool/core": "^0.1.0"
+    "@packtool/core": "file:packtool-core-0.1.2.tgz"
   }
 }
