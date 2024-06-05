@@ -1,10 +1,11 @@
-{
+{  
    "workspaces": [
       "packages/*"
    ],
    "scripts": {
       "pullpack": "packtool pull",
-      "pushpack": "packtool push"
+      "pushpack": "packtool push",
+      "publish" : "npx lerna exec -- npm publish --access public" 
    },
    "devDependencies": {
       "@packtool/core": "0.2.0",
